@@ -27,6 +27,11 @@ void loop()
   case 'S':
     update_tuning(&speed);
     break;
+  case ' ':
+    Wire.beginTransmission(1);
+    Wire.write(5); //ESTOP
+    Wire.endTransmission();
+    Serial.println("****ESTOP****");
   }
 }
 void update_tuning(double * target){
