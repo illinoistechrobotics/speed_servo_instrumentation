@@ -6,6 +6,8 @@ void setup()
   Wire.begin();
 }
 
+char address = 1;
+
 double pterm = 0;
 double iterm = 0;
 double dterm = 0;
@@ -27,8 +29,16 @@ void loop()
   case 'S':
     update_tuning(&speed);
     break;
+  case 'T':
+    if(address == 1){
+      address = 2;
+    } else {
+      address = 1;
+    }
+    Serial.print("New Address: ");
+    Serial.println(address);
   case ' ':
-    Wire.beginTransmission(1);
+    Wire.beginTransmission(address);
     Wire.write(5); //ESTOP
     Wire.endTransmission();
     Serial.println("****ESTOP****");
@@ -54,7 +64,7 @@ void update_tuning(double * target){
   }
   Serial.print("Got: ");
   Serial.print(*target);
-  Wire.beginTransmission(1);
+  Wire.beginTransmission(address);
   if(target == &pterm){
     Wire.write(1);
     Serial.println(" pterm");
