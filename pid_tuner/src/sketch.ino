@@ -37,6 +37,7 @@ void loop()
     }
     Serial.print("New Address: ");
     Serial.println(address);
+    break;
   case ' ':
     Wire.beginTransmission(address);
     Wire.write(5); //ESTOP
