@@ -44,12 +44,20 @@ void loop()
     Wire.endTransmission();
     Serial.println("****ESTOP****");
   }
+  Wire.beginTransmission(address);
+  Wire.write(6);
+  Wire.endTransmission();
+  delay(10);
 }
 void update_tuning(double * target){
   char buffer[100];
   int buffer_index = 0;
   while(buffer_index < 100){
     while(!Serial.available()){
+      Wire.beginTransmission(address);
+      Wire.write(6);
+      Wire.endTransmission();
+      delay(10);
     }
     buffer[buffer_index] = Serial.read();
     if(buffer[buffer_index] == '$'){
